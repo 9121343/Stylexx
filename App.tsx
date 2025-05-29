@@ -7,7 +7,7 @@ export default function App() {
   return (
     <CartProvider>
       {/* <ShopPage /> */}
-      <div>Welcome to Stylexx!</div>
+      <div>ShopPage component will go here</div>
     </CartProvider>
   );
 }
