@@ -3,9 +3,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
-import { CartProvider } from "./components/CartContext";  // adjust path if needed
-import StyleAssistant from "./components/StyleAssistant";
-import AIOutfitFeed from "./components/AIOutfitFeed";
+import { CartProvider } from "./CartContext";  // adjust path if needed
+import StyleAssistant from "./StyleAssistant";
+import AIOutfitFeed from "./AIOutfitFeed";
 
 import "./styles.css"; // Tailwind or other global styles
 
