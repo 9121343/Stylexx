@@ -4,6 +4,14 @@ import React, { useState } from 'react';
 import { useCart } from '@/components/CartContext';
 import { useRouter } from 'next/navigation';
 
+type Outfit = {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+};
+
 export default function StyleAssistant() {
   const { addToCart } = useCart();
   const router = useRouter();
@@ -13,7 +21,7 @@ export default function StyleAssistant() {
   const [colors, setColors] = useState('');
   const [budget, setBudget] = useState('');
 
-  const outfits = [
+  const outfits: Outfit[] = [
     {
       id: 'casual-chic',
       title: 'Casual Chic',
@@ -30,14 +38,13 @@ export default function StyleAssistant() {
     },
   ];
 
-  const addOutfitToCart = (outfit: any) => {
+  const addOutfitToCart = (outfit: Outfit) => {
     addToCart({
       id: outfit.id,
       name: outfit.title,
       price: outfit.price,
       image: outfit.image,
       quantity: 1,
-      description: outfit.description,
     });
   };
 
@@ -86,8 +93,8 @@ export default function StyleAssistant() {
 
       <h2 className="text-lg font-semibold pt-4">Outfit Suggestions</h2>
 
-      {outfits.map((outfit, index) => (
-        <div key={index} className="bg-white rounded-md shadow p-3 space-y-2">
+      {outfits.map((outfit) => (
+        <div key={outfit.id} className="bg-white rounded-md shadow p-3 space-y-2">
           <img src={outfit.image} alt={outfit.title} className="rounded-md" />
           <h3 className="font-bold">{outfit.title}</h3>
           <p className="text-gray-600">{outfit.description}</p>

@@ -37,42 +37,45 @@ export default function ProductPage() {
   };
 
   return (
-        <div className="bg-white text-black">
+    <>
+      <div className="bg-white text-black min-h-screen">
         <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 flex items-center justify-between px-6 py-3">
-            <div className="text-xl font-bold">StyleXX</div>
-            <nav className="flex gap-6 font-medium">
-              <a href="/shop" className="hover:underline">Shop</a>
-              <a href="/customize" className="hover:underline">Customize</a>
-              <a href="/ai-assistant" className="hover:underline">AI Assistant</a>
-              <a href="/community" className="hover:underline">Community</a>
-            </nav>
-            <div className="flex gap-4 text-2xl items-center">
-              <button aria-label="Search" className="hover:text-blue-600">🔍</button>
-              <button aria-label="Profile" className="hover:text-blue-600">👤</button>
-              <button id="cart-icon" aria-label="Cart" className="hover:text-blue-600 relative">
-                🛒
+          <div className="text-xl font-bold">StyleXX</div>
+          <nav className="flex gap-6 font-medium">
+            <a href="/shop" className="hover:underline">Shop</a>
+            <a href="/customize" className="hover:underline">Customize</a>
+            <a href="/ai-assistant" className="hover:underline">AI Assistant</a>
+            <a href="/community" className="hover:underline">Community</a>
+          </nav>
+          <div className="flex gap-4 text-2xl items-center">
+            <button aria-label="Search" className="hover:text-blue-600">🔍</button>
+            <button aria-label="Profile" className="hover:text-blue-600">👤</button>
+            <button id="cart-icon" aria-label="Cart" className="hover:text-blue-600 relative">🛒</button>
+          </div>
+        </header>
+
+        {/* Product Grid */}
+        <div className="grid grid-cols-2 gap-6 p-6 mt-24">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="border rounded p-4 flex flex-col items-center shadow-sm hover:shadow-md transition"
+            >
+              <img src={product.image} alt={`Image of ${product.name}`} width={120} height={120} />
+              <h4 className="font-semibold mt-2">{product.name}</h4>
+              <p className="text-gray-600">₹{product.price}</p>
+              <button
+                className="mt-2 bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                onClick={(e) => handleAddToCart(e, product)}
+              >
+                Add to Cart
               </button>
             </div>
-      <div className="grid grid-cols-2 gap-6 p-6">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="border rounded p-4 flex flex-col items-center"
-          >
-            <img src={product.image} alt={product.name} width={120} height={120} />
-            <h4 className="font-semibold mt-2">{product.name}</h4>
-            <p>₹{product.price}</p>
-            <button
-              className="mt-2 bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-              onClick={(e) => handleAddToCart(e, product)}
-            >
-              Add to Cart
-            </button>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      {/* ✨ Animation */}
+      {/* ✨ Flying Bubbles Animation */}
       <AnimatePresence>
         {flyBubbles.map(({ id, img, startPos }) => (
           <motion.img

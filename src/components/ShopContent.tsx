@@ -1,21 +1,115 @@
 'use client';
-import React from 'react';
 
-export default function ShopContent() {
-  return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Shop Products</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Product listings will go here */}
-        <div className="border rounded-lg p-4">
-          <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-48" />
-          <h2 className="text-xl font-semibold mt-2">Product Name</h2>
-          <p className="text-gray-600">$29.99</p>
-          <button className="mt-2 bg-black text-white px-4 py-2 rounded w-full">
-            Add to Cart
-          </button>
-        </div>
-      </div>
-    </div>
+import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+
+export type Product = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+};
+
+export type CartItem = Product & {
+  quantity: number;
+};
+
+type CartState = {
+  items: CartItem[];
+};
+
+type CartAction =
+  | { type: 'ADD_ITEM'; payload: CartItem }
+  | { type: 'REMOVE_ITEM'; payload: string }
+  | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
+  | { type: 'CLEAR_CART' };
+
+type CartContextType = {
+  cart: CartState;
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
+  clearCart: () => void;
+  totalAmount: number;
+};
+
+const CartContext = createContext<CartContextType | null>(null);
+
+const cartReducer = (state: CartState, action: CartAction): CartState => {
+  switch (action.type) {
+    case 'ADD_ITEM': {
+      const existingItem = state.items.find(item => item.id === action.payload.id);
+      if (existingItem) {
+        return {
+          items: state.items.map(item =>
+            item.id === action.payload.id
+              ? { ...item, quantity: item.quantity + action.payload.quantity }
+              : item
+          ),
+        };
+      }
+      return { items: [...state.items, action.payload] };
+    }
+    case 'REMOVE_ITEM':
+      return { items: state.items.filter(item => item.id !== action.payload) };
+    case 'UPDATE_QUANTITY':
+      return {
+        items: state.items.map(item =>
+          item.id === action.payload.id
+            ? { ...item, quantity: action.payload.quantity }
+            : item
+        ),
+      };
+    case 'CLEAR_CART':
+      return { items: [] };
+    default:
+      return state;
+  }
+};
+
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [cart, dispatch] = useReducer(cartReducer, { items: [] });
+
+  const addToCart = (item: CartItem) => {
+    dispatch({ type: 'ADD_ITEM', payload: item });
+  };
+
+  const removeFromCart = (id: string) => {
+    dispatch({ type: 'REMOVE_ITEM', payload: id });
+  };
+
+  const updateQuantity = (id: string, quantity: number) => {
+    dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });
+  };
+
+  const clearCart = () => {
+    dispatch({ type: 'CLEAR_CART' });
+  };
+
+  const totalAmount = cart.items.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
   );
-}
+
+  return (
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        totalAmount,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+};
+
+export const useCart = (): CartContextType => {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error('useCart must be used within a CartProvider');
+  }
+  return context;
+};

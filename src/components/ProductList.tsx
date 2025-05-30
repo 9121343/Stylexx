@@ -3,9 +3,9 @@
 import { useCart } from '@/components/CartContext';
 
 const products = [
-  { id: 'p1', name: 'Red T-Shirt', price: 499 },
-  { id: 'p2', name: 'Blue Jeans', price: 999 },
-  { id: 'p3', name: 'Black Hoodie', price: 1299 },
+  { id: 'p1', name: 'Red T-Shirt', price: 499, image: '/images/t.shirt.jpzg' },
+  { id: 'p2', name: 'Blue Jeans', price: 999, image: '/images/hoodie.png' },
+  { id: 'p3', name: 'Black Hoodie', price: 1299, image: '/images/shop1.png' },
 ];
 
 export default function ProductList() {
@@ -16,7 +16,10 @@ export default function ProductList() {
       <h1 className="text-2xl mb-4">Products</h1>
       <ul className="space-y-4">
         {products.map((product) => (
-          <li key={product.id} className="border p-4 rounded flex justify-between items-center">
+          <li
+            key={product.id}
+            className="border p-4 rounded flex justify-between items-center"
+          >
             <div>
               <h2 className="font-bold">{product.name}</h2>
               <p>₹{product.price}</p>

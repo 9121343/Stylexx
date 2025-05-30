@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useCart } from '@/components/CartContext';
+import { useCart } from './CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
@@ -11,7 +11,7 @@ interface CartDrawerProps {
 }
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
-  const { cartItems } = useCart();
+  const { cart, totalAmount } = useCart();
 
   return (
     <AnimatePresence>
@@ -42,14 +42,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
             </div>
 
             <div className="flex-1 overflow-y-auto space-y-4">
-              {cartItems.length === 0 ? (
+              {cart.length === 0 ? (
                 <p className="text-gray-500 text-sm">Your cart is empty.</p>
               ) : (
-                cartItems.map((item) => (
-                  <div
-                    key={item.id}
-                    className="border rounded p-3 flex justify-between items-center"
-                  >
+                cart.map(item => (
+                  <div key={item.id} className="border rounded p-3 flex justify-between items-center">
                     <div>
                       <h4 className="font-semibold">{item.name}</h4>
                       <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
@@ -60,9 +57,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
               )}
             </div>
 
-            {cartItems.length > 0 && (
+            {cart.length > 0 && (
               <div className="mt-4">
-                <Button className="w-full">Checkout</Button>
+                <Button className="w-full">Checkout - ₹{totalAmount}</Button>
               </div>
             )}
           </motion.div>

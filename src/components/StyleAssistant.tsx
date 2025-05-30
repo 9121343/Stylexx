@@ -1,9 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useCart } from '@/components/CartContext';
+import { useCart, Product } from '@/components/CartContext';
 import { useRouter } from 'next/navigation';
-import Navbar from '@/components/Navbar'; // Optional: For consistent header with "Stylexx"
+import { Navbar } from '@/components/Navbar'; // Navbar is a named export
+
+type Outfit = {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+};
 
 export default function StyleAssistant() {
   const { addToCart } = useCart();
@@ -14,7 +22,7 @@ export default function StyleAssistant() {
   const [colors, setColors] = useState('');
   const [budget, setBudget] = useState('');
 
-  const outfits = [
+  const outfits: Outfit[] = [
     {
       id: 'casual-chic',
       title: 'Casual Chic',
@@ -31,15 +39,16 @@ export default function StyleAssistant() {
     },
   ];
 
-  const addOutfitToCart = (outfit: any) => {
-    addToCart({
+  const addOutfitToCart = (outfit: Outfit) => {
+    // Typecast to Product expected by CartContext
+    const product: Product = {
       id: outfit.id,
       name: outfit.title,
       price: outfit.price,
       image: outfit.image,
       quantity: 1,
-      description: outfit.description,
-    });
+    };
+    addToCart(product);
   };
 
   const handleGenerateLooks = () => {
@@ -48,7 +57,7 @@ export default function StyleAssistant() {
 
   return (
     <div className="min-h-screen bg-[#fff8f8]">
-      <Navbar /> {/* Optional reusable navbar with Stylexx link */}
+      <Navbar /> {/* Navbar is a named export */}
 
       <div className="p-5 space-y-4 max-w-md mx-auto font-sans">
         <h1 className="text-xl font-bold text-center">Discover Your Perfect Style</h1>
@@ -90,8 +99,8 @@ export default function StyleAssistant() {
 
         <h2 className="text-lg font-semibold pt-4">Outfit Suggestions</h2>
 
-        {outfits.map((outfit, index) => (
-          <div key={index} className="bg-white rounded-md shadow p-3 space-y-2">
+        {outfits.map((outfit) => (
+          <div key={outfit.id} className="bg-white rounded-md shadow p-3 space-y-2">
             <img src={outfit.image} alt={outfit.title} className="rounded-md" />
             <h3 className="font-bold">{outfit.title}</h3>
             <p className="text-gray-600">{outfit.description}</p>
