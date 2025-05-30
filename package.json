@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-   "dev": "next dev",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "postinstall": "rd /s /q .next || exit 0"
+    "start": "next start"
   },
   "dependencies": {
     "framer-motion": "^12.15.0",
@@ -20,6 +19,7 @@
     "@tailwindcss/postcss": "^4.1.8",
     "@types/node": "22.15.24",
     "@types/react": "19.1.6",
+    "@types/react-dom": "^19.1.5",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.4",
     "tailwindcss": "^4.1.8",

@@ -11,9 +11,9 @@ type Product = {
 };
 
 const products: Product[] = [
-  { id: 1, name: 'Sneaker', price: 99, image: '/images/sneaker.png' },
-  { id: 2, name: 'Boot', price: 120, image: '/images/boot.png' },
-  { id: 3, name: 'Loafer', price: 80, image: '/images/loafer.png' },
+  { id: 1, name: 'Sneaker', price: 99, image: '/images/hoodie.png' },
+  { id: 2, name: 'Boot', price: 120, image: '/images/t.shirt.png' },
+  { id: 3, name: 'Loafer', price: 80, image: '/images/shop1.png' },
 ];
 
 export default function ShopPage() {

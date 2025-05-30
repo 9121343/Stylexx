@@ -1,6 +1,4 @@
-// app/layout.tsx
-import '@/styles/global.css'; // Ensure this path is correct
-// ... rest of your layout code
+import '@/styles/global.css';
 import type { Metadata } from 'next';
 import { CartProvider } from '@/components/CartContext';
 import Header from '@/components/Header';

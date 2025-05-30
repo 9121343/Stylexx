@@ -4,10 +4,11 @@ import React from 'react';
 import { useCart, Product } from './CartContext';
 
 const products: Product[] = [
-  { id: 'p1', name: 'Cool Hat', price: 299, image: '/images/cool-hat.png' },
-  { id: 'p2', name: 'Nice Shirt', price: 499, image: '/images/nice-shirt.png' },
-  { id: 'p3', name: 'Stylish Jacket', price: 999, image: '/images/jacket.png' },
+  { id: 'p1', name: 'Cool Hat', price: 299, image: '/images/hoodi.png', quantity: 1 },
+  { id: 'p2', name: 'Nice Shirt', price: 499, image: '/images/t.shirt.png', quantity: 1 },
+  { id: 'p3', name: 'Stylish Jacket', price: 999, image: '/images/shop1.png', quantity: 1 },
 ];
+
 
 const ShopPage: React.FC = () => {
   const { addToCart } = useCart();
