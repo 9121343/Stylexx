@@ -1,0 +1,34 @@
+{
+  "name": "stylexx",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "axios": "^1.9.0",
+    "framer-motion": "^12.15.0",
+    "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.511.0",
+    "next": "^15.3.3",
+    "next-auth": "^4.24.11",
+    "next-navigation": "^1.0.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-hot-toast": "^2.5.2",
+    "react-icons": "^5.5.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.8",
+    "@types/node": "22.15.24",
+    "@types/react": "19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^4.1.8",
+    "typescript": "5.8.3"
+  }
+}
